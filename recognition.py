@@ -64,6 +64,7 @@ class FaceRecognition:
                     name = "Unknown"
                     confidence = '???'
                     face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
+                    ########################setting time count down###############
                     sec = 5
                     best_match_index = np.argmin(face_distances)
                     if matches[best_match_index]:
@@ -74,10 +75,21 @@ class FaceRecognition:
                         print(start)
                         if(start==sec):
                             start=str("complete")
-                            print("enter1")
                             bsuck=True
-                            print("enter2")
                             start=int(0)
+                            path='checkin_pic'
+                            rname=name.split("_",1)[0]
+                            sname=name.split("_",1)[1]
+                            print(rname)
+                            print(sname)
+                            dt = datetime.now()
+                            ts = datetime.timestamp(dt)
+                            ts2 = datetime.fromtimestamp(ts)
+                            str_date_time = ts2.strftime("%d-%m-%Y_%H_%M")
+                            img_name = "{}_{}.jpg".format(name,str_date_time)
+                            print(img_name)
+                            cv2.imwrite(os.path.join(path,img_name), frame)
+                            ##########connect database
                             #mydb = mysql.connector.connect(
                             #host="localhost",
                             #user="root",
@@ -85,37 +97,18 @@ class FaceRecognition:
                             #database="vn1data_itservice"
                             #)
                             #mycursor = mydb.cursor()
-                            #sql="INSERT INTO checkin (name) VALUES (%s)"
-                            #val=(name,)
+                            #sql="INSERT INTO checkin (name,"ชื่อฐานข้อมูล") VALUES (%s,"%ประเภทของตัวแปร")"
+                            #val=(name,"ตัวแปร",)
                             #mycursor.execute(sql,val)
                             #mydb.commit()
-                            path='checkin_pic'
-                            dt = datetime.now()
-                            ts = datetime.timestamp(dt)
-                            ts2 = datetime.fromtimestamp(ts)
-                            str_date_time = ts2.strftime("%d-%m-%Y_%H_%M")
-                            #img_name = "{}_{}.png".format(name,ts2)
-                            img_name = "{}_{}.jpg".format(name,str_date_time)
-                            print(img_name)
-                            cv2.imwrite(os.path.join(path,img_name), frame)
+                     
                             
                         else :
                             start+=1
                             time.sleep(1)
                             bsuck=False
 
-                        #mydb = mysql.connector.connect(
-                        #host="localhost",
-                        #user="root",
-                        #password="",
-                        #database="vn1data_itservice"
-                        #)
-                        #mycursor = mydb.cursor()
-
-                        #sql="INSERT INTO checkin (name) VALUES (%s)"
-                        #val=(name,)
-                        #mycursor.execute(sql,val)
-                        #mydb.commit()
+                       
                             
 
 
