@@ -74,6 +74,7 @@ class FaceRecognition:
                        
                         print(start)
                         if(start==sec):
+                            
                             start=str("complete")
                             bsuck=True
                             start=int(0)
@@ -94,7 +95,7 @@ class FaceRecognition:
                             #host="localhost",
                             #user="root",
                             #password="",
-                            #database="vn1data_itservice"
+                            #database="vn1data_itservice**ชื่อฐานข้อมูล"
                             #)
                             #mycursor = mydb.cursor()
                             #sql="INSERT INTO checkin (name,"ชื่อฐานข้อมูล") VALUES (%s,"%ประเภทของตัวแปร")"
