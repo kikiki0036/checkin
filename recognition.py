@@ -5,7 +5,7 @@ import numpy as np
 import math
 import time
 import mysql.connector
-
+from datetime import datetime
 def face_confidence(face_distance, face_match_threshold=0.6):
     range = (1.0 - face_match_threshold)
     linear_val = (1.0 - face_distance) / (range * 2.0)
@@ -89,6 +89,15 @@ class FaceRecognition:
                             #val=(name,)
                             #mycursor.execute(sql,val)
                             #mydb.commit()
+                            path='checkin_pic'
+                            dt = datetime.now()
+                            ts = datetime.timestamp(dt)
+                            ts2 = datetime.fromtimestamp(ts)
+                            str_date_time = ts2.strftime("%d-%m-%Y_%H_%M")
+                            #img_name = "{}_{}.png".format(name,ts2)
+                            img_name = "{}_{}.jpg".format(name,str_date_time)
+                            print(img_name)
+                            cv2.imwrite(os.path.join(path,img_name), frame)
                             
                         else :
                             start+=1
