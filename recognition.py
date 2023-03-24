@@ -71,7 +71,7 @@ class FaceRecognition:
                         name = self.known_face_names[best_match_index]
                         confidence = face_confidence(face_distances[best_match_index])
                         name=name.partition('.')[0]
-                       
+                        rname=name.split("_",1)[0]
                         print(start)
                         if(start==sec):
                             
@@ -126,11 +126,11 @@ class FaceRecognition:
                 if bsuck == False :
                     cv2.rectangle(frame, (left, top), (right, bottom), (204, 102, 255), 2)
                     cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (204, 102, 255), cv2.FILLED)
-                    cv2.putText(frame, name, (left + 6, bottom - 6), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), 1)
+                    cv2.putText(frame, rname, (left + 6, bottom - 6), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), 1)
                 elif bsuck == True:
                     cv2.rectangle(frame, (left, top), (right, bottom), (0, 255, 0), 2)
                     cv2.rectangle(frame, (left, bottom - 35), (right, bottom), (0, 255, 0), cv2.FILLED)
-                    cv2.putText(frame, name, (left + 6, bottom - 6), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), 1)
+                    cv2.putText(frame, rname, (left + 6, bottom - 6), cv2.FONT_HERSHEY_DUPLEX, 0.8, (255, 255, 255), 1)
 
             cv2.imshow('Face Recognition', frame)
 
