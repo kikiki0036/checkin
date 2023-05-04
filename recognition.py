@@ -65,7 +65,7 @@ class FaceRecognition:
                     confidence = '???'
                     face_distances = face_recognition.face_distance(self.known_face_encodings, face_encoding)
                     ########################setting time count down###############
-                    sec = 5
+                    sec = 4
                     best_match_index = np.argmin(face_distances)
                     if matches[best_match_index]:
                         name = self.known_face_names[best_match_index]
@@ -79,29 +79,34 @@ class FaceRecognition:
                             bsuck=True
                             start=int(0)
                             path='checkin_pic'
-                            rname=name.split("_",1)[0]
-                            sname=name.split("_",1)[1]
+                            rname=name.split("_",2)[0]
+                            sname=name.split("_",2)[1]
+                            dep=name.split("_",2)[2]
                             print(rname)
                             print(sname)
                             dt = datetime.now()
                             ts = datetime.timestamp(dt)
                             ts2 = datetime.fromtimestamp(ts)
-                            str_date_time = ts2.strftime("%d-%m-%Y_%H_%M")
+                            str_date_time = ts2.strftime("%d-%m-%Y_%H_%M_%S")
                             img_name = "{}_{}.jpg".format(name,str_date_time)
                             print(img_name)
+                            str_date = ts2.strftime("%Y-%m-%d")
+                            str_time = ts2.strftime("%H:%M:%S")
                             cv2.imwrite(os.path.join(path,img_name), frame)
                             ##########connect database
-                            #mydb = mysql.connector.connect(
-                            #host="localhost",
-                            #user="root",
-                            #password="",
-                            #database="vn1data_itservice**ชื่อฐานข้อมูล"
-                            #)
-                            #mycursor = mydb.cursor()
-                            #sql="INSERT INTO checkin (name,"ชื่อฐานข้อมูล") VALUES (%s,"%ประเภทของตัวแปร")"
-                            #val=(name,"ตัวแปร",)
-                            #mycursor.execute(sql,val)
-                            #mydb.commit()
+                            mydb = mysql.connector.connect(
+                            host="localhost",
+                            user="root",
+                            password="",
+                            #**ชื่อฐานข้อมูล
+                            database="hr_data"
+                            )
+                            mycursor = mydb.cursor()
+                            #"ชื่อฐานข้อมูล"
+                            sql="INSERT INTO checktime(firstname_em,lastname_em,department_em,date_check,time_check,status_check) VALUES(%s,%s,%s,%s,%s,%s)"
+                            val=(rname,sname,dep,str_date,str_time,"ปกติ")
+                            mycursor.execute(sql,val)
+                            mydb.commit()
                      
                             
                         else :
