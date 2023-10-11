@@ -102,9 +102,9 @@ class FaceRecognition:
                             database="hr_data"
                             )
                             mycursor = mydb.cursor()
-                            #"ชื่อฐานข้อมูล"
+                            #"ชื่อฐานข้อมูล ชื่อtableข้อมูล"
                             sql="INSERT INTO checktime(firstname_em,lastname_em,department_em,date_check,time_check,status_check) VALUES(%s,%s,%s,%s,%s,%s)"
-                            val=(rname,sname,dep,str_date,str_time,"ปกติ")
+                            val=(rname,sname,dep,str_date,str_time,"เข้างาน")
                             mycursor.execute(sql,val)
                             mydb.commit()
                      
